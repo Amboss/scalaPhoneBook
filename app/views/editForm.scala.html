@@ -1,0 +1,41 @@
+@(id: Long, personForm: Form[Person])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.f) }
+
+@main {
+    
+    <h1>Edit person</h1>
+    
+    @if(personForm.hasGlobalErrors) {
+        <div class="alert-message warning">
+            @personForm.globalError.map { error =>
+                <span class="error">@error.message</span>
+            }
+        </div>
+    }   
+    
+    @if(personForm.errors("phone").nonEmpty){
+        <div class="alert-message warning">
+            <strong>@Messages(personForm.errors("phone")(0).message,8)</strong>
+        </div>
+    }
+    
+    @form(routes.Application.update(id)) {
+        <fieldset>
+            @inputText(personForm("name"), '_label -> "Person name", '_help -> "")
+            @inputText(personForm("phone"), '_label -> "Phone number", '_help -> "")
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Save this person" class="btn primary"> or 
+            <a href="@routes.Application.list()" class="btn">Cancel</a> 
+        </div>
+    }
+    
+    @form(routes.Application.delete(id), 'class -> "topRight") {
+        <input type="submit" value="Delete this person" class="btn danger">
+    }
+    
+}

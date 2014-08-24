@@ -1,0 +1,6 @@
+# Messages
+persons.list.title={0,choice,0#No persons|1#One person|1<{0,number,integer} persons} found
+
+error.digitsonly=Use digits only!
+
+error.duplicatedname=This name already used!
